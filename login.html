@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>User Login</title>
+
+<style>
+body{
+font-family:Arial;
+background:#111;
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.container{
+background:#1e1e1e;
+padding:30px;
+border-radius:10px;
+width:300px;
+text-align:center;
+}
+
+input{
+width:90%;
+padding:10px;
+margin:8px;
+border:none;
+border-radius:5px;
+}
+
+button{
+width:95%;
+padding:10px;
+margin-top:10px;
+background:#00c3ff;
+border:none;
+color:white;
+font-weight:bold;
+cursor:pointer;
+border-radius:5px;
+}
+
+button:hover{
+background:#0099cc;
+}
+
+.switch{
+margin-top:15px;
+cursor:pointer;
+color:#00c3ff;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2 id="title">Sign Up</h2>
+
+<input type="text" id="username" placeholder="Username">
+<input type="password" id="password" placeholder="Password">
+<input type="date" id="birthday">
+
+<button onclick="register()">Register</button>
+<button onclick="login()">Login</button>
+
+<div class="switch" onclick="showUsers()">Show Saved Users</div>
+
+</div>
+
+<script>
+
+function register(){
+
+let username=document.getElementById("username").value;
+let password=document.getElementById("password").value;
+let birthday=document.getElementById("birthday").value;
+
+if(username=="" || password==""){
+alert("Fill all fields");
+return;
+}
+
+let users=JSON.parse(localStorage.getItem("users")) || [];
+
+users.push({
+username:username,
+password:password,
+birthday:birthday
+});
+
+localStorage.setItem("users",JSON.stringify(users));
+
+alert("Account Created!");
+}
+
+function login(){
+
+let username=document.getElementById("username").value;
+let password=document.getElementById("password").value;
+
+let users=JSON.parse(localStorage.getItem("users")) || [];
+
+let user=users.find(u=>u.username===username && u.password===password);
+
+if(user){
+alert("Login Successful");
+}else{
+alert("Invalid Login");
+}
+
+}
+
+function showUsers(){
+
+let users=JSON.parse(localStorage.getItem("users")) || [];
+
+console.log(users);
+
+alert("Check browser console to see saved users");
+
+}
+
+</script>
+
+</body>
+</html>
