@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>EVOLON X</title>
+<style>
+body{
+margin:0;
+background:#1e1e1e;
+font-family:Arial;
+color:white;
+text-align:center;
+touch-action:none;
+}
+#home{
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+h1{
+font-size:60px;
+color:#00ffcc;
+letter-spacing:4px;
+}
+
+button{
+padding:15px 35px;
+font-size:18px;
+margin-top:20px;
+border:none;
+background:#00ffcc;
+color:black;
+cursor:pointer;
+border-radius:8px;
+}
+
+#dashboard{
+display:none;
+padding:10px;
+background:#111;
+font-size:30px; /* score text size */
+}
+
+
+#score,#enemyCount{
+background:#2b2b2b;
+padding:6px 14px;
+border-radius:8px;
+border:2px solid #00ffcc;
+margin-left:6px;
+display:inline-block;
+}
+
+#gameCanvas{
+border:2px solid #00ffcc;
+background-size:cover;
+background:#1e1e1e;
+}
+
+footer{
+position:fixed;
+bottom:0;
+width:100%;
+background:#111;
+color:#00ffcc;
+text-align:center;
+padding:8px;
+font-size:14px;
+letter-spacing:1px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="home">
+<h1>EVOLON X</h1>
+<button onclick="startGame()">Start Game</button>
+</div>
+
+<div id="dashboard">
+Score: <span id="score">0</span>
+</div>
+
+<div id="dashboard">
+Score: <span id="score">0</span>
+&nbsp;&nbsp;
+Enemies: <span id="enemyCount">0</span>
+</div>
+
+<canvas id="gameCanvas" width="600" height="400"></canvas>
+
+<footer>
+© DEVELOPED BY DEVIN XTECH
+</footer>
+
+<script src="https://telegram.org/js/telegram-web-app.js">
+  let canvas = document.getElementById("gameCanvas");
+let ctx = canvas.getContext("2d");
+
+let player = {x:280,y:350,width:40,height:40};
+
+let bullets = [];
+let enemies = [];
+let flashEnemies = [];
+
+let score = 0;
+
+function startGame(){
+document.getElementById("home").style.display="none";
+document.getElementById("dashboard").style.display="block";
+
+spawnEnemy();
+spawnFlashEnemy();
+
+gameLoop();
+}
+
+document.addEventListener("keydown",function(e){
+
+if(e.key==="ArrowLeft") player.x-=20;
+if(e.key==="ArrowRight") player.x+=20;
+
+if(e.key===" "){
+bullets.push({x:player.x+18,y:player.y});
+}
+
+});
+
+function spawnEnemy(){
+
+setInterval(function(){
+
+let x = Math.random()*560;
+
+enemies.push({
+x:x,
+y:0,
+width:40,
+height:40
+});
+
+},2000);
+
+}
+
+function spawnFlashEnemy(){
+
+setInterval(function(){
+
+flashEnemies.push({
+x:100,
+y:0,
+width:40,
+height:40,
+dir:1,
+move:0
+});
+
+},4000);
+
+}
+
+blasts.push({
+x:e.x+20,
+y:e.y+20,
+size:10
+});
+
+flashEnemies.splice(fi,1);
+score += 2;
+
+function drawPlayer(){
+
+ctx.fillStyle="cyan";
+ctx.fillRect(player.x,player.y,player.width,player.height);
+
+}
+
+function drawBullets(){
+
+ctx.fillStyle="yellow";
+
+for(let i=bullets.length-1;i>=0;i--){
+
+let b = bullets[i];
+
+b.y -= 8;
+
+ctx.fillRect(b.x,b.y,5,10);
+
+if(b.y < 0){
+bullets.splice(i,1);
+}
+
+}
+
+}
+
+function drawEnemies(){
+
+ctx.fillStyle="red";
+
+for(let i=enemies.length-1;i>=0;i--){
+
+let e=enemies[i];
+
+e.y += 2;
+
+ctx.beginPath();
+ctx.arc(e.x+20, e.y+20, 20, 0, Math.PI*2);
+ctx.fill();
+
+if(e.y>400) enemies.splice(i,1);
+
+}
+
+
+}
+
+function drawFlashEnemies(){
+
+ctx.fillStyle="lime";
+
+for(let i=flashEnemies.length-1;i>=0;i--){
+
+let e=flashEnemies[i];
+
+e.y += 2;
+e.x += e.dir;
+
+e.move++;
+
+if(e.move>20){
+e.dir*=-1;
+e.move=0;
+}
+
+ctx.beginPath();
+ctx.arc(e.x+20, e.y+20, 20, 0, Math.PI*2);
+ctx.fill();
+
+if(e.y>400) flashEnemies.splice(i,1);
+
+}
+
+
+}
+
+function collision(){
+
+for(let bi=bullets.length-1;bi>=0;bi--){
+
+for(let ei=enemies.length-1;ei>=0;ei--){
+
+let b = bullets[bi];
+let e = enemies[ei];
+
+if(
+b.x < e.x + e.width &&
+b.x + 5 > e.x &&
+b.y < e.y + e.height &&
+b.y + 10 > e.y
+){
+
+bullets.splice(bi,1);
+enemies.splice(ei,1);
+
+score++;
+document.getElementById("score").innerText = score;
+
+break;
+
+}
+
+}
+
+for(let fi=flashEnemies.length-1;fi>=0;fi--){
+
+let b = bullets[bi];
+let e = flashEnemies[fi];
+
+if(!b) continue;
+
+if(
+b.x < e.x + e.width &&
+b.x + 5 > e.x &&
+b.y < e.y + e.height &&
+b.y + 10 > e.y
+){
+
+bullets.splice(bi,1);
+flashEnemies.splice(fi,1);
+
+score += 2;
+document.getElementById("score").innerText = score;
+
+break;
+
+}
+
+}
+
+}
+
+}
+
+function gameLoop(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+drawPlayer();
+drawBullets();
+drawEnemies();
+drawFlashEnemies();
+collision();
+
+requestAnimationFrame(gameLoop);
+
+}
+
+// TOUCH MOVE PLAYER
+canvas.addEventListener("touchmove", function(e){
+
+let rect = canvas.getBoundingClientRect();
+let touch = e.touches[0];
+
+player.x = touch.clientX - rect.left - player.width/2;
+
+});
+
+// TAP TO SHOOT (MULTIPLE TAPS)
+canvas.addEventListener("touchstart", function(e){
+
+let rect = canvas.getBoundingClientRect();
+
+for(let i=0;i<e.touches.length;i++){
+
+bullets.push({
+x:player.x + 18,
+y:player.y
+});
+
+}
+
+});
+
+document.getElementById("enemyCount").innerText =
+enemies.length + flashEnemies.length;
+
+
+let blasts = [];
+
+function drawBlasts(){
+
+for(let i=blasts.length-1;i>=0;i--){
+
+let b = blasts[i];
+
+ctx.beginPath();
+ctx.arc(b.x,b.y,b.size,0,Math.PI*2);
+ctx.fillStyle="orange";
+ctx.fill();
+
+b.size += 2;
+
+if(b.size > 30){
+blasts.splice(i,1);
+}
+
+}
+
+function gameLoop(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+drawPlayer();
+drawBullets();
+drawEnemies();
+drawFlashEnemies();
+drawBlasts();   // add this
+collision();
+
+requestAnimationFrame(gameLoop);
+
+</script>
+</body>
+
+</html>
+
