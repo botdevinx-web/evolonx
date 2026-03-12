@@ -48,6 +48,20 @@ display:none;
 padding:10px;
 background:#111;
 font-size:30px;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+#loginBtn{
+text-decoration:none;
+background:#00ffcc;
+color:black;
+padding:6px 15px;
+border-radius:8px;
+font-size:16px;
+font-weight:bold;
 }
 
 #score,#enemyCount{
@@ -87,8 +101,14 @@ letter-spacing:1px;
 </div>
 
 <div id="dashboard">
+
+<div id="scoreboard">
 Score: <span id="score">0</span>
 Enemies: <span id="enemyCount">0</span>
+</div>
+
+<a href="login.html" id="loginBtn">Login</a>
+
 </div>
 
 <canvas id="gameCanvas" width="600" height="400"></canvas>
