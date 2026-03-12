@@ -2,106 +2,7 @@
 <html lang="en">
 <head>
 <script src="https://telegram.org/js/telegram-web-app.js">
-  
-</script>
-<meta charset="UTF-8">
-<title>EVOLON X</title>
-<style>
-body{
-margin:0;
-background:#1e1e1e;
-font-family:Arial;
-color:white;
-text-align:center;
-touch-action:none;
-}
-#home{
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-height:100vh;
-}
-
-h1{
-font-size:60px;
-color:#00ffcc;
-letter-spacing:4px;
-}
-
-button{
-padding:15px 35px;
-font-size:18px;
-margin-top:20px;
-border:none;
-background:#00ffcc;
-color:black;
-cursor:pointer;
-border-radius:8px;
-}
-
-#dashboard{
-display:none;
-padding:10px;
-background:#111;
-font-size:30px; /* score text size */
-}
-
-
-#score,#enemyCount{
-background:#2b2b2b;
-padding:6px 14px;
-border-radius:8px;
-border:2px solid #00ffcc;
-margin-left:6px;
-display:inline-block;
-}
-
-#gameCanvas{
-border:2px solid #00ffcc;
-background-size:cover;
-background:#1e1e1e;
-}
-
-footer{
-position:fixed;
-bottom:0;
-width:100%;
-background:#111;
-color:#00ffcc;
-text-align:center;
-padding:8px;
-font-size:14px;
-letter-spacing:1px;
-}
-</style>
-</head>
-
-<body>
-
-<div id="home">
-<h1>EVOLON X</h1>
-<button onclick="startGame()">Start Game</button>
-</div>
-
-<div id="dashboard">
-Score: <span id="score">0</span>
-</div>
-
-<div id="dashboard">
-Score: <span id="score">0</span>
-&nbsp;&nbsp;
-Enemies: <span id="enemyCount">0</span>
-</div>
-
-<canvas id="gameCanvas" width="600" height="400"></canvas>
-
-<footer>
-© DEVELOPED BY DEVIN XTECH
-</footer>
-
-<script>
-  let canvas = document.getElementById("gameCanvas");
+    let canvas = document.getElementById("gameCanvas");
 let ctx = canvas.getContext("2d");
 
 let player = {x:280,y:350,width:40,height:40};
@@ -390,7 +291,102 @@ collision();
 requestAnimationFrame(gameLoop);
 
 </script>
-</body>
+</script>
+<meta charset="UTF-8">
+<title>EVOLON X</title>
+<style>
+body{
+margin:0;
+background:#1e1e1e;
+font-family:Arial;
+color:white;
+text-align:center;
+touch-action:none;
+}
+#home{
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
 
+h1{
+font-size:60px;
+color:#00ffcc;
+letter-spacing:4px;
+}
+
+button{
+padding:15px 35px;
+font-size:18px;
+margin-top:20px;
+border:none;
+background:#00ffcc;
+color:black;
+cursor:pointer;
+border-radius:8px;
+}
+
+#dashboard{
+display:none;
+padding:10px;
+background:#111;
+font-size:30px; /* score text size */
+}
+
+
+#score,#enemyCount{
+background:#2b2b2b;
+padding:6px 14px;
+border-radius:8px;
+border:2px solid #00ffcc;
+margin-left:6px;
+display:inline-block;
+}
+
+#gameCanvas{
+border:2px solid #00ffcc;
+background-size:cover;
+background:#1e1e1e;
+}
+
+footer{
+position:fixed;
+bottom:0;
+width:100%;
+background:#111;
+color:#00ffcc;
+text-align:center;
+padding:8px;
+font-size:14px;
+letter-spacing:1px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="home">
+<h1>EVOLON X</h1>
+<button onclick="startGame()">Start Game</button>
+</div>
+
+<div id="dashboard">
+Score: <span id="score">0</span>
+</div>
+
+<div id="dashboard">
+Score: <span id="score">0</span>
+&nbsp;&nbsp;
+Enemies: <span id="enemyCount">0</span>
+</div>
+
+<canvas id="gameCanvas" width="600" height="400"></canvas>
+
+<footer>
+© DEVELOPED BY DEVIN XTECH
+</footer>
+</body>
 </html>
 
