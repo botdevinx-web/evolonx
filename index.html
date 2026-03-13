@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SHOOT ENEMY</title>
+<title>EVOLON X</title>
 
 <!-- Telegram Mini App Support -->
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -140,7 +140,7 @@ letter-spacing:1px;
 <body>
 
 <div id="home">
-<h1>EVOLON X</h1>
+<h1>FOLLOW</h1>
 <button onclick="startGame()">Start Game</button>
 </div>
 
@@ -152,7 +152,7 @@ Enemies: <span id="enemyCount">0</span>
 </div>
 </div>
 
-<canvas id="gameCanvas" width="600" height="400"></canvas>
+<canvas id="gameCanvas" width="500" height="650"></canvas>
 
 <footer>
 © DEVELOPED BY DEVIN XTECH
@@ -163,7 +163,7 @@ Enemies: <span id="enemyCount">0</span>
 let canvas=document.getElementById("gameCanvas");
 let ctx=canvas.getContext("2d");
 
-let player={x:280,y:350,width:40,height:40};
+let player={x:280,y:260,width:40,height:40};
 
 let bullets=[];
 let enemies=[];
@@ -274,8 +274,7 @@ let size = window.innerWidth < 600 ? 14 : 20;
 ctx.arc(e.x+size,e.y+size,size,0,Math.PI*2);
 ctx.fill();
 
-if(e.y>400) enemies.splice(i,1);
-
+if(e.y>300) enemies.splice(i,1);
 }
 
 }
@@ -302,8 +301,7 @@ ctx.beginPath();
 ctx.arc(e.x+20,e.y+20,20,0,Math.PI*2);
 ctx.fill();
 
-if(e.y>400) flashEnemies.splice(i,1);
-
+if(e.y>300) flashEnemies.splice(i,1);
 }
 
 }
