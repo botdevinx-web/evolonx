@@ -134,6 +134,20 @@ font-size:14px;
 letter-spacing:1px;
 }
 
+#unlockBtn{
+background:#ffcc00;
+color:black;
+border:none;
+padding:12px 25px;
+font-size:18px;
+border-radius:8px;
+cursor:pointer;
+}
+
+#unlockBtn:hover{
+background:#ffd633;
+}
+
 </style>
 </head>
 
@@ -153,7 +167,11 @@ Enemies: <span id="enemyCount">0</span>
 </div>
 
 <canvas id="gameCanvas" width="500" height="650"></canvas>
-
+  
+<div id="adminUnlock" style="display:none; margin-top:15px;">
+<button id="unlockBtn" onclick="openAdmin()">Unlock Admin</button>
+</div>
+  
 <footer>
 © DEVELOPED BY DEVIN XTECH
 </footer>
@@ -390,6 +408,7 @@ flashEnemies.splice(fi,1);
 score+=2;
 
 document.getElementById("score").innerText=score;
+checkAdminUnlock();
 
 break;
 
@@ -458,6 +477,22 @@ player.y = canvas.height - 60;
 
 resizeCanvas();
 window.addEventListener("resize", resizeCanvas);
+
+  function checkAdminUnlock(){
+
+if(score >= 100){
+document.getElementById("adminUnlock").style.display="block";
+alert("Congratulations");
+}
+
+}
+
+function openAdmin(){
+
+window.location.href="https://t.me/INBDEV_BOT";
+
+}
+  
 </script>
 
 </body>
