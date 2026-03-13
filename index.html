@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EVOLON X</title>
+<title>SHOOT ENEMY</title>
 
 <!-- Telegram Mini App Support -->
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -20,6 +20,29 @@ font-size:40px;
 font-size:20px;
 }
 
+    @media (max-width:600px){
+
+#dashboard{
+font-size:18px;
+padding:6px;
+}
+
+#score,#enemyCount{
+padding:4px 10px;
+font-size:16px;
+border-width:1px;
+}
+
+#loginBtn{
+font-size:14px;
+padding:4px 10px;
+}
+
+h1{
+font-size:40px;
+}
+
+}
 button{
 font-size:16px;
 padding:12px 25px;
@@ -183,8 +206,8 @@ let x=Math.random()*560;
 enemies.push({
 x:x,
 y:0,
-width:40,
-height:40
+width:20,
+height:20
 });
 
 },2000);
@@ -198,8 +221,8 @@ setInterval(function(){
 flashEnemies.push({
 x:Math.random()*560,
 y:0,
-width:40,
-height:40,
+width:20,
+height:20,
 dir:1,
 move:0
 });
@@ -247,7 +270,8 @@ let e=enemies[i];
 e.y+=2;
 
 ctx.beginPath();
-ctx.arc(e.x+20,e.y+20,20,0,Math.PI*2);
+let size = window.innerWidth < 600 ? 14 : 20;
+ctx.arc(e.x+size,e.y+size,size,0,Math.PI*2);
 ctx.fill();
 
 if(e.y>400) enemies.splice(i,1);
