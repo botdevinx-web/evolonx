@@ -163,8 +163,14 @@ Enemies: <span id="enemyCount">0</span>
 let canvas=document.getElementById("gameCanvas");
 let ctx=canvas.getContext("2d");
 
-let player={x:280,y:260,width:40,height:40};
+let player={
+x:canvas.width/2-20,
+y:canvas.height-60,
+width:40,
+height:40
+};
 
+  
 let bullets=[];
 let enemies=[];
 let flashEnemies=[];
@@ -201,8 +207,8 @@ function spawnEnemy(){
 
 setInterval(function(){
 
-let x=Math.random()*560;
-
+let x=Math.random()*(canvas.width-40);
+  
 enemies.push({
 x:x,
 y:0,
@@ -239,6 +245,9 @@ if(player.x>canvas.width-player.width) player.x=canvas.width-player.width;
 ctx.fillStyle="cyan";
 ctx.fillRect(player.x,player.y,player.width,player.height);
 
+if(player.y > canvas.height - player.height)
+player.y = canvas.height - player.height;
+
 }
 
 function drawBullets(){
@@ -274,7 +283,7 @@ let size = window.innerWidth < 600 ? 14 : 20;
 ctx.arc(e.x+size,e.y+size,size,0,Math.PI*2);
 ctx.fill();
 
-if(e.y>300) enemies.splice(i,1);
+if(e.y>canvas.height) enemies.splice(i,1);
 }
 
 }
@@ -301,7 +310,7 @@ ctx.beginPath();
 ctx.arc(e.x+20,e.y+20,20,0,Math.PI*2);
 ctx.fill();
 
-if(e.y>300) flashEnemies.splice(i,1);
+if(e.y>canvas.height) flashEnemies.splice(i,1);
 }
 
 }
@@ -441,12 +450,14 @@ maxWidth = 600;
 canvas.width = maxWidth;
 canvas.height = maxWidth * 0.66;
 
+/* reposition player */
+player.x = canvas.width/2 - player.width/2;
+player.y = canvas.height - 60;
+
 }
 
 resizeCanvas();
-
 window.addEventListener("resize", resizeCanvas);
-
 </script>
 
 </body>
